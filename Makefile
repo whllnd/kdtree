@@ -1,2 +1,2 @@
 all:
-	g++-5 -std=c++14 main.cpp kdtree.cpp -o KD
+	g++-5 -std=c++11 main.cpp kdtree.cpp -o KD -ggdb

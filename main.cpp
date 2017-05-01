@@ -2,12 +2,16 @@
 
 int main() {
 
-	std::vector<std::unique_ptr<p3 const>> pts{
-		std::unique_ptr<p3 const>(new p3{2, 3, 1}),
-		std::unique_ptr<p3 const>(new p3{2, 2, 1}),
-		std::unique_ptr<p3 const>(new p3{1, 1, 0}),
-		std::unique_ptr<p3 const>(new p3{5, 6, 3})
-	};
-	kdtree kd(pts);
+	std::vector<p3> pts;
+	for (std::size_t i(0); i < 5; i++) {
+		pts.push_back(p3{ rand() % 10, rand() % 10, rand() % 10 });
+		std::cout << "[" << pts.back().v[0] << " " << pts.back().v[1] << " " << pts.back().v[2] << "]" << std::endl;
+	}
+	std::cout << "---" << std::endl;
+	kdtree kd(pts.begin(), pts.end());
+	for (std::size_t i(0); i < pts.size(); i++) {
+		std::cout << "[" << pts[i].v[0] << " " << pts[i].v[1] << " " << pts[i].v[2] << "]" << std::endl;
+	}
 	kd.print();
+
 }

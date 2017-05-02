@@ -43,6 +43,17 @@ void kdtree::construct(
 		return;
 	}
 
+	if (2 == size) {
+		if (less(*s, *(s+1), axis)) {
+			left_ = &(*s);
+			root_ = std::unique_ptr<kdtree>(new kdtree(s+1, e));
+		} else {
+			root_ = &(*s);
+			left_ = std::unique_ptr<kdtree>(new kdtree(s+1, e));
+		}
+		return;
+	}
+
 	// Sort points along current axis
 	int axis(depth % 3);
 	std::sort(s, e,
@@ -50,17 +61,6 @@ void kdtree::construct(
 			return kdtree::less(a, b, axis);
 		}
 	);
-
-	if (2 == size) {
-		if (less(*s, *(s+1), axis)) {
-			root_ = &(*s);
-			right_ = std::unique_ptr<kdtree>(new kdtree(s+1, e));
-		} else {
-			root_ = &(*s);
-			left_ = std::unique_ptr<kdtree>(new kdtree(s+1, e));
-		}
-		return;
-	}
 
 	// Take the median as the root
 	int median(size / 2);
